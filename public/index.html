@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TODO APP</title>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+
+    <body>
+        <h1>!!! My Todo List !!!</h1>
+        <button onclick="getTodosAJAX()">Refresh Todos</button>
+        <br>
+        <br>
+        <div id="todos_list_div">
+            <script src="/script.js" type="text/javascript"></script>
+        </div>
+        <br>
+        Want to add a new Todo ???<br>
+        <input type="text" id="new_todo_input" placeholder="enter todo title">
+        <br>
+        <br>
+        <input type="button" value="add todo" onclick="addTodoAJAX()" >
+    </body>
+</html>
