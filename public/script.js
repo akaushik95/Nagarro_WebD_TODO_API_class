@@ -35,9 +35,15 @@ function createTodoElement(id, todo_object) {
         complete_button.setAttribute("onclick", "completeTodoAJAX("+id+")");
         complete_button.setAttribute("class", "breathHorizontal");
         todo_element.appendChild(complete_button);
+
+
     }
     if(todo_object.status != "DELETED"){
-
+        var delete_button = document.createElement("button");
+        delete_button.innerText = "Delete";
+        delete_button.setAttribute("onclick", "deleteTodoAJAX("+id+")");
+        delete_button.setAttribute("class", "breathHorizontal");
+        todo_element.appendChild(delete_button);
     }
     return todo_element;
 }
@@ -82,6 +88,24 @@ function completeTodoAJAX(id) {
     xhr.open("PUT", "/api/todos/"+id, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     var data = "status=COMPLETE";
+    xhr.onreadystatechange = function () {
+        if(xhr.readyState == RESPONSE_DONE){
+            if(xhr.status == STATUS_OK){
+                console.log(xhr.responseText);
+                addTodoElements(TODOS_LIST_ID, xhr.responseText);
+            }else{
+                console.log(xhr.responseText);
+            }
+        }
+    }
+    xhr.send(data);
+};
+
+function deleteTodoAJAX(id) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("DELETE", "/api/todos/"+id, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    var data = "status=DELETED";
     xhr.onreadystatechange = function () {
         if(xhr.readyState == RESPONSE_DONE){
             if(xhr.status == STATUS_OK){
